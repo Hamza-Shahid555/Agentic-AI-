@@ -1,0 +1,48 @@
+# 🤖 Agentic AI Framework
+
+An autonomous AI agent system built with **LangChain** and **LlamaIndex**, designed to reason, plan, and execute multi-step tasks using external tools, APIs, and data sources.
+
+## 🚀 Features
+
+- **Autonomous Task Execution** – Breaks down complex goals into actionable steps
+- **Tool Integration** – Connects to APIs, databases, and external services
+- **Memory & Context** – Maintains conversation history and long-term memory
+- **RAG (Retrieval-Augmented Generation)** – Uses LlamaIndex for document/knowledge retrieval
+- **Modular Architecture** – Easily extend with custom tools and agents
+- **LLM Agnostic** – Compatible with OpenAI, Anthropic, and other providers
+
+## 🛠️ Tech Stack
+
+- **Language:** Python 3.10+
+- **Frameworks:** LangChain, LlamaIndex
+- **LLM Provider:** [OpenAI / Anthropic / Local models]
+- **Vector Store:** [Pinecone / Chroma / FAISS]
+- **Other:** [Any additional libraries]
+
+## 📦 Installation
+
+```bash
+git clone https://github.com/yourusername/your-repo-name.git
+cd your-repo-name
+pip install -r requirements.txt
+```
+
+## ⚙️ Configuration
+
+Create a `.env` file in the root directory:
+
+```env
+OPENAI_API_KEY=your_api_key_here
+# Add other required keys
+```
+
+## 🧑‍💻 Usage
+
+```python
+from agent import Agent
+
+agent = Agent()
+response = agent.run("Your task or query here")
+print(response)
+```
+
