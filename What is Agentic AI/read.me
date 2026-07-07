@@ -1,0 +1,65 @@
+# Understanding Agentic AI
+
+*A clear, in-depth introduction to what Agentic AI is, how it differs from ordinary Generative AI, and what makes it work under the hood.*
+
+## What Is Agentic AI?
+
+Most people's first experience with AI is asking a question and getting an answer back — a single request, 
+a single response. That reactive pattern is how traditional Generative AI works: it waits for a prompt, 
+produces an output, and then stops. It has no memory of what it's supposed to accomplish beyond that one exchange, and it takes no action in the world on its own.
+
+Agentic AI is a fundamentally different paradigm. Instead of just responding, an agentic system is given a
+goal — something like "research this topic and prepare a summary" or "book the cheapest flight that meets these conditions" — and 
+it is expected to figure out, on its own, how to get there. It can break that goal into smaller steps, decide which tools or resources 
+to use, carry out those steps in sequence, check whether things are going as expected, and change course if they aren't. It does all of this
+with minimal step-by-step instruction from a human.
+
+**In short:** Generative AI produces content on request. Agentic AI pursues outcomes.
+
+## Key Characteristics of Agentic AI
+
+Six qualities, taken together, distinguish an agentic system from a simple chatbot or content generator.
+
+- **Autonomy** — The system can make decisions and take actions by itself, without a human approving every single move. Once it
+understands the goal, it decides what to do next on its own — choosing which tool to call, what question to ask, or what step to
+take — rather than waiting to be told each individual action.
+
+- **Goal-Oriented Behaviour** — Rather than reacting to one isolated prompt at a time, the system holds a persistent objective in
+mind across the entire interaction. Every action it takes is evaluated against the question: "does this bring me closer to the goal?" This
+is what allows it to keep working across many steps instead of stopping after one reply.
+
+- **Planning** — A large goal is rarely achievable in one step. Agentic systems break a high-level objective down into a structured sequence
+of smaller sub-goals or actions — essentially drafting a roadmap before or while executing it, similar to how a person might outline a project before starting it.
+
+- **Reasoning** — Reasoning is the thinking process that runs throughout planning and execution. It's what lets the system interpret information it 
+receives (from a tool, a document, or the user), draw sensible conclusions from it, and figure out how to recover when something goes wrong or a step fails.
+
+- **Adaptability** — Real-world conditions rarely match expectations perfectly. Adaptability is the ability to change strategy mid-course — if a chosen
+approach doesn't work, or the environment provides unexpected feedback, the system revises its plan instead of rigidly continuing down a broken path.
+
+- **Context Awareness** — To act sensibly over an extended task, the system needs to remember what has already happened — earlier steps, past interactions,
+relevant details about the user or environment — and use that information to inform what it does next, rather than treating every moment in isolation.
+
+## Core Components of an Agentic AI System
+
+Behind these characteristics sits a concrete architecture — a set of components that work together, each responsible for a different part of getting from goal to outcome.
+
+| Component | Role |
+|---|---|
+| **1. Brain** | Usually a large language model (LLM). It is the reasoning core of the system — interpreting the goal, generating a plan, reasoning through 
+problems, and deciding which tool to use at each step. |
+| **2. Orchestrator** | Manages the flow of execution — routing between steps, running loops, and deciding what happens next based on the plan and current
+state. Frameworks such as LangGraph are commonly used to build this layer. |
+| **3. Tools** | External capabilities the agent can call on, such as APIs, search engines, databases, or other software, which let it act beyond just
+generating text. |
+| **4. Memory** | Stores context so the system doesn't lose track of what it's doing. Short-term memory holds details relevant to the current session; 
+long-term memory retains preferences, constraints, and facts across sessions. |
+| **5. Supervisor** | Provides a human-in-the-loop safety layer — stepping in for oversight, approval, or escalation whenever a decision is too sensitive
+or uncertain to leave entirely to the system. |
+
+## Putting It Together
+
+In practice, these pieces form a loop: the Brain interprets a goal and drafts a plan, the Orchestrator steps through that plan and decides what happens next
+at each stage, Tools are invoked to gather information or take action in the real world, Memory keeps track of everything relevant so far, and the Supervisor 
+stands ready to step in if human judgment is needed. This loop is what allows an agentic system to move from "here is a goal" to "here is a completed outcome"
+with only light human oversight along the way — the core promise of Agentic AI.
