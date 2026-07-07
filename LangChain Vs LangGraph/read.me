@@ -1,0 +1,116 @@
+LangChain Vs LangGraph
+LangChain vs LangGraph
+
+Understanding the Difference Between the Two Frameworks
+
+
+Overview
+
+LangChain and LangGraph are both frameworks built for developing LLM-powered applications, but they solve different problems. LangChain
+focuses on chaining together components (prompts, models, tools, memory) into linear or semi-structured pipelines. LangGraph focuses on building 
+stateful, controllable agent workflows using a graph-based execution model.
+
+In short: LangChain is for building chains. LangGraph is for building agents with control flow.
+
+
+1. What is LangChain?
+
+LangChain is a framework for building applications powered by LLMs by chaining together modular components.
+
+Key Features:
+
+
+Prompt templates and prompt management
+Chains — sequences of calls (LLM → tool → LLM, etc.)
+Memory modules for conversation history
+Integrations with vector databases, APIs, and tools
+Retrieval-Augmented Generation (RAG) support
+Simple agents (using ReAct-style reasoning)
+
+
+Best suited for:
+
+
+Linear or mostly-linear workflows
+RAG pipelines
+Simple tool-calling chatbots
+Rapid prototyping of LLM apps
+
+
+
+2. What is LangGraph?
+
+LangGraph is a library (built by the LangChain team) for building stateful, multi-step, and cyclical workflows using a graph 
+structure — where nodes represent steps/functions and edges represent transitions between them.
+
+Key Features:
+
+
+Graph-based execution (nodes + edges) instead of linear chains
+Native support for loops, branching, and conditional logic
+Persistent state across the entire workflow
+Built-in support for human-in-the-loop interventions
+Fine-grained control over agent behavior and execution order
+Better suited for multi-agent systems
+
+
+Best suited for:
+
+
+Complex agentic workflows
+Systems requiring retries, loops, or backtracking
+Multi-agent orchestration
+Long-running or stateful applications
+Workflows needing checkpoints or human approval steps
+
+
+
+3. Key Differences
+
+AspectLangChainLangGraphExecution ModelLinear chains / sequencesGraph-based (nodes & edges)Control FlowLimited branchingFull support
+for loops, conditionals, branchingState ManagementBasic memory modulesPersistent, explicit state across the graphAgent ComplexitySimple 
+to moderate agentsComplex, multi-step, multi-agent systemsHuman-in-the-loopLimitedNative supportDebuggabilityHarder to trace complex flowsClear 
+visual graph structure aids debuggingUse Case FitRAG pipelines, simple chatbotsAutonomous agents, workflows with cycles
+
+
+4. How They Relate
+
+LangGraph is not a replacement for LangChain — it's built on top of LangChain's core abstractions (models, tools, prompts) and is designed to handle 
+the cases where LangChain's linear chain model becomes limiting.
+
+LangChain
+   │  (Provides: LLM wrappers, prompts, tools, memory)
+   ▼
+LangGraph
+   │  (Adds: graph-based control flow, state, cycles, multi-agent support)
+   ▼
+Complex Agentic Applications
+
+
+5. When to Use Which
+
+Use LangChain when:
+
+
+You need a straightforward pipeline (e.g., retrieve → prompt → generate)
+Your workflow doesn't require loops or complex branching
+You're building a RAG system or simple chatbot
+
+
+Use LangGraph when:
+
+
+Your agent needs to make decisions that loop back or branch
+You need persistent state across multiple steps
+You're orchestrating multiple agents working together
+You need human approval/intervention at certain steps
+You want fine-grained control over how and when each step executes
+
+
+
+Summary
+
+
+LangChain provides the foundational building blocks for LLM applications — prompts, chains, memory, and tools.
+LangGraph extends these building blocks with a graph-based execution engine, enabling stateful, cyclical, and controllable agent workflows.
+Together, they form a layered stack: LangChain for components, LangGraph for orchestration.
