@@ -1,0 +1,593 @@
+# 🚀 LangGraph Fundamentals
+
+A comprehensive guide to **LangGraph**, the orchestration framework for building **stateful, multi-step LLM applications and AI agents**.
+
+This repository covers the fundamental concepts of LangGraph, including workflow patterns, nodes, edges, state management, reducers, and the execution model.
+
+---
+
+# 📖 Table of Contents
+
+- Introduction
+- What is LangGraph?
+- Why LangGraph?
+- LangGraph vs LangChain
+- Core Concepts
+- Common Workflow Patterns
+- State Management
+- Reducers
+- LangGraph Execution Model
+- Project Structure
+- Installation
+- Learning Outcomes
+- References
+
+---
+
+# 📌 What is LangGraph?
+
+**LangGraph** is an orchestration framework built on top of **LangChain** that enables developers to build **stateful, multi-step AI workflows** using
+Large Language Models (LLMs).
+
+Unlike traditional chains that execute tasks in a fixed linear sequence, LangGraph represents workflows as **graphs**, allowing applications to:
+
+- Maintain memory (state)
+- Execute tasks conditionally
+- Run tasks in parallel
+- Support loops and retries
+- Build intelligent AI agents
+- Resume interrupted workflows
+
+LangGraph is particularly useful for developing production-ready AI systems that require complex reasoning and decision-making.
+
+---
+
+# ❓ Why LangGraph?
+
+Traditional LangChain chains work well for simple workflows.
+
+Example:
+
+```
+User Input
+     │
+     ▼
+ Prompt
+     │
+     ▼
+  LLM
+     │
+     ▼
+ Output
+```
+
+However, real-world AI applications are much more complex.
+
+For example, an AI travel assistant may need to:
+
+- Understand the user's request
+- Search flights
+- Search hotels
+- Check weather
+- Ask follow-up questions
+- Search again
+- Generate an itinerary
+
+This requires:
+
+- Multiple execution paths
+- Memory
+- Conditional decisions
+- Loops
+- Parallel processing
+
+LangGraph was designed to solve these problems.
+
+---
+
+# 🔄 LangChain vs LangGraph
+
+| LangChain | LangGraph |
+|------------|------------|
+| Linear workflows | Graph-based workflows |
+| Simple pipelines | Complex AI agents |
+| Limited state | Built-in state management |
+| Difficult looping | Supports loops |
+| Sequential execution | Parallel execution |
+| Basic routing | Advanced conditional routing |
+
+---
+
+# 🏗 Core Concepts
+
+LangGraph represents workflows as **Graphs**.
+
+A graph consists of:
+
+```
+Graph
+│
+├── Nodes
+├── Edges
+└── State
+```
+
+---
+
+# 📍 Nodes
+
+A **Node** represents an individual task in the workflow.
+
+A node is usually a Python function.
+
+Examples:
+
+- Calling GPT
+- Searching documents
+- Calling APIs
+- Summarizing text
+- Performing calculations
+
+Example:
+
+```python
+def summarize(state):
+    ...
+```
+
+Visual:
+
+```
++--------------------+
+|  Summarize Node    |
++--------------------+
+```
+
+---
+
+# 🔗 Edges
+
+Edges connect one node to another.
+
+They determine the execution flow.
+
+Example:
+
+```
+Node A
+   │
+   ▼
+Node B
+```
+
+---
+
+## Types of Edges
+
+### 1. Linear Edge
+
+```
+Node A
+   │
+   ▼
+Node B
+```
+
+---
+
+### 2. Conditional Edge
+
+```
+         Is Positive?
+         │         │
+       Yes         No
+        │           │
+        ▼           ▼
+ Thank User     Apologize
+```
+
+---
+
+### 3. Cyclic Edge (Loop)
+
+```
+Generate Answer
+       │
+       ▼
+Evaluate Answer
+       │
+       ▼
+Good Enough?
+   │         │
+  No        Yes
+   │          │
+   └──────────┘
+```
+
+Loops continue until a condition is satisfied.
+
+---
+
+# 🔥 Common LLM Workflow Patterns
+
+LangGraph supports multiple workflow patterns.
+
+---
+
+## 1. Prompt Chaining
+
+Break one large task into smaller sequential tasks.
+
+Example:
+
+```
+Topic
+   │
+   ▼
+Outline
+   │
+   ▼
+Detailed Report
+   │
+   ▼
+Summary
+```
+
+Use Cases
+
+- Blog generation
+- Research assistants
+- Report writing
+
+---
+
+## 2. Routing
+
+The system decides which workflow should execute.
+
+Example
+
+```
+             User Question
+                    │
+                    ▼
+              Classify Query
+                    │
+        ┌───────────┴────────────┐
+        ▼                        ▼
+ Technical Question      Billing Question
+        │                        │
+        ▼                        ▼
+ Technical Agent         Billing Agent
+```
+
+Use Cases
+
+- Customer support
+- Multi-agent systems
+- Tool selection
+
+---
+
+## 3. Parallelization
+
+Independent tasks execute simultaneously.
+
+Example
+
+```
+                 Input
+                    │
+      ┌─────────────┴─────────────┐
+      ▼                           ▼
+Generate Notes             Generate Quiz
+      │                           │
+      └─────────────┬─────────────┘
+                    ▼
+             Merge Results
+```
+
+Advantages
+
+- Faster execution
+- Better utilization
+- Independent processing
+
+---
+
+## 4. Orchestrator-Worker
+
+A master LLM distributes work to specialized workers.
+
+```
+             User Request
+                   │
+                   ▼
+            Orchestrator
+       ┌────────┼─────────┐
+       ▼        ▼         ▼
+ Worker 1  Worker 2  Worker 3
+       │        │         │
+       └────────┼─────────┘
+                ▼
+          Final Response
+```
+
+Use Cases
+
+- Research agents
+- Software engineering agents
+- Multi-document analysis
+
+---
+
+## 5. Evaluator-Optimizer
+
+One LLM generates.
+
+Another LLM evaluates.
+
+The cycle continues until quality is acceptable.
+
+```
+Generate Draft
+      │
+      ▼
+Evaluate Draft
+      │
+      ▼
+Satisfied?
+  │          │
+ No         Yes
+ │            │
+ ▼            ▼
+Improve     Finish
+```
+
+Use Cases
+
+- Code generation
+- Essay writing
+- Content refinement
+
+---
+
+# 💾 State Management
+
+State is the shared memory of the graph.
+
+Every node can:
+
+- Read the state
+- Update the state
+- Pass the updated state to the next node
+
+Example
+
+```python
+state = {
+    "question": "...",
+    "documents": [],
+    "answer": ""
+}
+```
+
+Visual
+
+```
+Node A
+   │
+   ▼
+ Shared State
+   ▲
+   │
+Node B
+```
+
+State enables memory throughout the workflow.
+
+---
+
+# 🔄 Reducers
+
+Reducers define **how state updates are combined**.
+
+Without reducers:
+
+```
+Old Value
+
+↓
+
+New Value
+
+↓
+
+Old value lost
+```
+
+With reducers:
+
+```
+Old Value
+      +
+New Value
+      ↓
+Merged Value
+```
+
+Example
+
+Chat History
+
+Without reducer
+
+```
+Hello
+```
+
+↓
+
+```
+How are you?
+```
+
+Old message disappears.
+
+With reducer
+
+```
+Hello
+
+How are you?
+```
+
+Both messages are preserved.
+
+Reducers are useful for:
+
+- Chat history
+- Tool outputs
+- Logs
+- Lists
+- Memory accumulation
+
+---
+
+# ⚙ LangGraph Execution Model
+
+LangGraph is inspired by **Google's Pregel system**.
+
+Instead of executing one node at a time, LangGraph executes workflows using **Supersteps**.
+
+---
+
+## What is a Superstep?
+
+A Superstep is one round of graph execution where multiple nodes can run simultaneously.
+
+Example
+
+```
+Superstep 1
+
+Node A
+
+↓
+
+Superstep 2
+
+Node B
+Node C
+
+↓
+
+Superstep 3
+
+Node D
+```
+
+Node B and Node C execute **in parallel**.
+
+---
+
+## Workflow Completion
+
+Execution stops when:
+
+- No active nodes remain
+- No messages are being passed
+- No further execution paths exist
+
+---
+
+# 📂 Project Structure
+
+```
+LangGraph-Fundamentals/
+│
+├── README.md
+├── examples/
+├── notebooks/
+├── graphs/
+└── requirements.txt
+```
+
+---
+
+# 📦 Installation
+
+```bash
+pip install langgraph
+```
+
+or
+
+```bash
+pip install langgraph langchain langchain-openai python-dotenv
+```
+
+---
+
+# 🎯 Learning Outcomes
+
+After completing this project, you will understand:
+
+- What LangGraph is
+- Why LangGraph exists
+- Difference between LangChain and LangGraph
+- Nodes
+- Edges
+- Conditional Routing
+- Loops
+- Parallel Execution
+- State Management
+- Reducers
+- Supersteps
+- Execution Model
+- Agent Workflows
+
+---
+
+# 📚 Prerequisites
+
+Basic knowledge of:
+
+- Python
+- LangChain
+- Prompt Engineering
+- Large Language Models (LLMs)
+
+---
+
+# 🚀 Real-World Applications
+
+LangGraph is widely used for building:
+
+- AI Agents
+- Customer Support Bots
+- Research Assistants
+- Coding Agents
+- Multi-Agent Systems
+- Document Processing Pipelines
+- Retrieval-Augmented Generation (RAG)
+- Autonomous AI Workflows
+
+---
+
+# 📖 Key Takeaways
+
+- LangGraph is designed for building **stateful AI workflows**.
+- Workflows are represented as **graphs** instead of simple chains.
+- Nodes perform individual tasks.
+- Edges define execution flow.
+- State allows every node to share information.
+- Reducers merge updates into the shared state.
+- LangGraph supports sequential execution, branching, looping, and parallel execution.
+- The execution model is inspired by **Google Pregel**, enabling scalable and efficient workflow orchestration.
+
+---
+
+# 👨‍💻 Author
+
+This repository is part of a LangGraph learning journey, designed to help beginners understand the framework through simple explanations and practical examples.
