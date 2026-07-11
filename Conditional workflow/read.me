@@ -1,0 +1,196 @@
+# Conditional Workflows in LangGraph
+
+## Overview
+
+This project demonstrates how to build **Conditional Workflows** using **LangGraph**. Unlike sequential workflows that execute every step in order, conditional
+workflows allow the application to **make decisions** and execute different paths based on the current state or LLM output.
+
+Conditional workflows are useful when an AI application needs to choose between multiple actions dynamically.
+
+---
+
+## What are Conditional Workflows?
+
+A **Conditional Workflow** is a graph where the next node is selected based on a condition.
+
+Instead of:
+
+```
+Start → A → B → End
+```
+
+A conditional workflow looks like:
+
+```
+              ┌──► Node A ──► End
+Start ──► Decision
+              └──► Node B ──► End
+```
+
+The workflow evaluates a condition and routes execution to the appropriate node.
+
+---
+
+## Why Use Conditional Workflows?
+
+- Execute different actions based on user input
+- Build intelligent AI agents
+- Route tasks dynamically
+- Reduce unnecessary LLM calls
+- Create flexible and scalable workflows
+
+---
+
+## Key Concepts
+
+### State
+
+The **State** stores information that is shared between all nodes.
+
+Example:
+
+```python
+class State(TypedDict):
+    question: str
+    category: str
+    answer: str
+```
+
+---
+
+### Nodes
+
+Nodes perform individual tasks such as:
+
+- Classifying input
+- Calling an LLM
+- Searching documents
+- Generating responses
+- Processing data
+
+Each node receives the current state and returns updated values.
+
+---
+
+### Conditional Edge
+
+A **Conditional Edge** decides which node should execute next.
+
+Instead of connecting nodes directly, a routing function is used.
+
+Example:
+
+```python
+graph.add_conditional_edges(
+    "classifier",
+    route_function
+)
+```
+
+The routing function examines the state and returns the next node.
+
+---
+
+### Routing Function
+
+A routing function contains the decision logic.
+
+Example:
+
+```python
+def route(state):
+    if state["category"] == "math":
+        return "math_node"
+    else:
+        return "general_node"
+```
+
+---
+
+## Workflow Example
+
+```
+          Start
+            │
+            ▼
+     Classify Question
+            │
+      ┌─────┴─────┐
+      ▼           ▼
+ Math Node   General Node
+      │           │
+      └─────┬─────┘
+            ▼
+           End
+```
+
+If the question is mathematical, the graph routes to the Math Node. Otherwise, it routes to the General Node.
+
+---
+
+## Common Use Cases
+
+- Customer support chatbots
+- Document classification
+- Intent detection
+- Email routing
+- Multi-agent systems
+- Question answering
+- Code generation
+- Research assistants
+
+---
+
+## Advantages
+
+- Dynamic execution
+- Flexible workflows
+- Better resource utilization
+- Easy to extend
+- Supports complex decision-making
+- Improves maintainability
+
+---
+
+## Difference Between Sequential and Conditional Workflows
+
+| Sequential Workflow | Conditional Workflow |
+|----------------------|----------------------|
+| Executes every node | Executes only selected nodes |
+| Fixed execution path | Dynamic execution path |
+| No decision making | Decision-based routing |
+| Simpler | More flexible |
+| Best for linear tasks | Best for intelligent applications |
+
+---
+
+## Applications
+
+Conditional workflows are widely used in:
+
+- AI Assistants
+- RAG Pipelines
+- Customer Support Bots
+- Multi-Agent Systems
+- Medical Diagnosis
+- Code Assistants
+- Workflow Automation
+- Intelligent Routing Systems
+
+---
+
+## Technologies Used
+
+- Python
+- LangGraph
+- LangChain
+- OpenAI / Compatible LLMs
+
+---
+
+## Conclusion
+
+Conditional Workflows make LangGraph applications more intelligent by enabling **decision-based execution**. Instead of following a
+fixed sequence, the workflow evaluates the current state and dynamically selects the next node. This approach creates scalable, efficient, and adaptive AI
+applications capable of handling real-world scenarios.
+```
