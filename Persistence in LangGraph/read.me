@@ -1,0 +1,28 @@
+# Persistence in LangGraph
+
+## Overview
+
+Persistence in **LangGraph** allows workflows to **save and restore their state**, making AI applications more reliable and stateful.
+
+## Key Concepts
+
+* **Persistence:** Saves workflow state after execution instead of deleting it.
+* **Checkpointer:** Stores state at each **superstep** for recovery and tracking.
+* **Thread ID:** Uniquely identifies each workflow session or conversation.
+
+## Benefits
+
+* 🧠 **Short-Term Memory:** Maintains conversation context across sessions.
+* 🔄 **Fault Tolerance:** Resume execution from the last checkpoint after failures.
+* 👤 **Human-in-the-Loop (HITL):** Pause workflows for human approval before continuing.
+* ⏪ **Time Travel:** Replay, inspect, or modify previous workflow states for debugging.
+
+## Implementation
+
+* Use **`InMemorySaver`** for local persistence.
+* Pass the **`checkpointer`** when compiling the graph.
+* Access saved states using **`get_state_history()`**.
+
+## Takeaway
+
+Persistence makes LangGraph workflows **stateful, recoverable, debuggable, and suitable for long-running AI applications**.
