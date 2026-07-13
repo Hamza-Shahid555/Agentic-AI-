@@ -1,0 +1,331 @@
+# RAG using LangGraph 📚🤖
+
+## Overview
+
+**Retrieval-Augmented Generation (RAG)** is an AI technique that combines a **Large Language Model (LLM)** with a **knowledge retrieval system**. Instead of relying only on the model's internal knowledge, RAG retrieves relevant information from external sources (such as PDFs, databases, websites, or vector databases) and uses that information to generate accurate, context-aware responses.
+
+With **LangGraph**, you can build stateful and multi-step RAG workflows that support retrieval, reasoning, memory, tool usage, and human-in-the-loop interactions.
+
+---
+
+# What is RAG?
+
+RAG stands for:
+
+- **R** – Retrieval
+- **A** – Augmented
+- **G** – Generation
+
+The process works as follows:
+
+1. Retrieve relevant documents.
+2. Augment the LLM prompt with the retrieved context.
+3. Generate a response based on both the user query and retrieved information.
+
+---
+
+# Why Use RAG?
+
+- Reduces LLM hallucinations
+- Uses up-to-date information
+- Answers questions from private documents
+- Improves response accuracy
+- Supports enterprise knowledge bases
+- Handles large collections of documents
+- Enables explainable AI responses
+
+---
+
+# RAG Architecture
+
+```text
+                 User Query
+                     │
+                     ▼
+              Query Processing
+                     │
+                     ▼
+            Embedding Generation
+                     │
+                     ▼
+             Vector Database Search
+                     │
+         Retrieves Relevant Documents
+                     │
+                     ▼
+     Combine Query + Retrieved Context
+                     │
+                     ▼
+              Large Language Model
+                     │
+                     ▼
+              Final AI Response
+```
+
+---
+
+# Components of a RAG System
+
+## 1. Data Source
+
+The knowledge base that contains your information.
+
+Examples:
+
+- PDF documents
+- Word files
+- Websites
+- CSV files
+- SQL databases
+- NoSQL databases
+- Company documentation
+- Research papers
+
+---
+
+## 2. Document Loader
+
+Loads documents into the application.
+
+Examples:
+
+- PDF Loader
+- CSV Loader
+- Text Loader
+- Web Loader
+- Directory Loader
+
+---
+
+## 3. Text Splitter
+
+Large documents are divided into smaller chunks before embedding.
+
+Benefits:
+
+- Better retrieval
+- Faster search
+- Improved context quality
+
+---
+
+## 4. Embedding Model
+
+Converts text into numerical vectors.
+
+Popular embedding models:
+
+- OpenAI Embeddings
+- Hugging Face Embeddings
+- Sentence Transformers
+- Google Embeddings
+
+---
+
+## 5. Vector Database
+
+Stores document embeddings for similarity search.
+
+Popular vector databases:
+
+- FAISS
+- Chroma
+- Pinecone
+- Weaviate
+- Milvus
+- Qdrant
+
+---
+
+## 6. Retriever
+
+Searches the vector database and returns the most relevant document chunks.
+
+Common retrieval methods:
+
+- Similarity Search
+- Semantic Search
+- Hybrid Search
+- MMR (Maximum Marginal Relevance)
+
+---
+
+## 7. Large Language Model
+
+Uses the retrieved context to generate the final answer.
+
+Examples:
+
+- GPT models
+- Claude
+- Gemini
+- Llama
+- Mistral
+
+---
+
+# RAG Workflow in LangGraph
+
+```text
+User Question
+      │
+      ▼
+Preprocess Query
+      │
+      ▼
+Generate Embedding
+      │
+      ▼
+Search Vector Database
+      │
+      ▼
+Retrieve Relevant Documents
+      │
+      ▼
+Combine Context + User Question
+      │
+      ▼
+LLM Generates Answer
+      │
+      ▼
+Return Final Response
+```
+
+---
+
+# LangGraph RAG Architecture
+
+```text
+                User
+                  │
+                  ▼
+            LangGraph Agent
+                  │
+        ┌─────────┴─────────┐
+        │                   │
+        ▼                   ▼
+  Retriever Node      Memory Node
+        │
+        ▼
+ Vector Database
+        │
+        ▼
+ Retrieved Context
+        │
+        ▼
+ Generation Node (LLM)
+        │
+        ▼
+ Final Response
+```
+
+---
+
+# Benefits of Using LangGraph for RAG
+
+- Multi-step workflows
+- Stateful conversations
+- Built-in memory
+- Tool integration
+- Conditional execution
+- Human-in-the-loop support
+- Retry and error handling
+- Easy debugging with LangSmith
+
+---
+
+# Advanced RAG Features
+
+LangGraph enables advanced RAG pipelines such as:
+
+- Query rewriting
+- Multi-query retrieval
+- Document reranking
+- Self-correcting retrieval
+- Agentic RAG
+- Multi-agent RAG
+- Recursive retrieval
+- Hybrid search
+- Citation generation
+
+---
+
+# Common Use Cases
+
+- Document question answering
+- Enterprise knowledge assistants
+- Customer support chatbots
+- Legal document analysis
+- Medical knowledge systems
+- Financial assistants
+- Research assistants
+- Educational tutors
+- Agricultural advisory systems
+
+---
+
+# Best Practices
+
+- Use high-quality embeddings.
+- Split documents into meaningful chunks.
+- Store embeddings in a scalable vector database.
+- Retrieve only the most relevant documents.
+- Limit prompt size to avoid token overflow.
+- Include source citations when possible.
+- Continuously update the knowledge base.
+- Monitor retrieval quality using LangSmith.
+
+---
+
+# Example Workflow
+
+```text
+User:
+"What are the symptoms of tomato leaf blight?"
+
+        │
+        ▼
+Retriever searches vector database
+        │
+        ▼
+Relevant agriculture documents retrieved
+        │
+        ▼
+LLM receives:
+- User Question
+- Retrieved Context
+        │
+        ▼
+Generates an accurate, context-aware answer
+```
+
+---
+
+# Advantages of RAG
+
+- Accurate responses
+- Reduced hallucinations
+- Real-time knowledge updates
+- Private data support
+- Scalable architecture
+- Better user trust
+- Domain-specific expertise
+- Lower cost compared to fine-tuning
+
+---
+
+# RAG vs Fine-Tuning
+
+| Feature | RAG | Fine-Tuning |
+|---------|-----|-------------|
+| Uses external knowledge | ✅ Yes | ❌ No |
+| Updates knowledge easily | ✅ Yes | ❌ Requires retraining |
+| Lower cost | ✅ Yes | ❌ Expensive |
+| Better for dynamic data | ✅ Yes | ❌ Limited |
+| Suitable for private documents | ✅ Yes | ⚠️ Requires training data |
+
+---
+
+# Summary
+
+**RAG (Retrieval-Augmented Generation)** in LangGraph combines the power of retrieval systems with Large Language Models to deliver accurate, context-aware responses. By retrieving relevant information from external knowledge sources before generating an answer, RAG minimizes hallucinations and keeps responses up to date. LangGraph enhances RAG by providing stateful workflows, memory, conditional logic, tool integration, and agent orchestration, making it an ideal framework for building production-ready AI assistants and knowledge-based applications.
