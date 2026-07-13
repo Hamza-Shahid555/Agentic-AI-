@@ -1,0 +1,213 @@
+# Tools in LangGraph 🛠️
+
+## Overview
+
+**Tools** in LangGraph are external functions or APIs that an AI agent can call to perform tasks
+beyond the capabilities of an LLM. Instead of relying only on its internal knowledge, the agent 
+can use tools to fetch real-time information, perform calculations, interact with databases, execute code, or communicate with external services.
+
+Tools make AI agents more powerful, accurate, and capable of solving real-world problems.
+
+---
+
+## Why Use Tools?
+
+- Access real-time information
+- Perform mathematical calculations
+- Search the web
+- Query databases
+- Execute custom Python functions
+- Call external APIs
+- Automate repetitive tasks
+- Extend the capabilities of LLMs
+
+---
+
+## How Tools Work
+
+```
+User Input
+     │
+     ▼
+   AI Agent
+     │
+     ▼
+Determines if a Tool is Needed
+     │
+     ├──────────► No
+     │             │
+     │             ▼
+     │       Generate Response
+     │
+     ▼ Yes
+Select Appropriate Tool
+     │
+     ▼
+Execute Tool
+     │
+     ▼
+Receive Tool Output
+     │
+     ▼
+LLM Generates Final Response
+```
+
+---
+
+## Types of Tools
+
+### 1. Custom Functions
+Python functions created by developers to perform specific tasks.
+
+**Examples:**
+- Calculate age
+- Convert units
+- Validate data
+- Process files
+
+---
+
+### 2. Web Search Tools
+
+Retrieve up-to-date information from the internet.
+
+**Examples:**
+- Latest news
+- Weather
+- Sports scores
+- Stock prices
+
+---
+
+### 3. Database Tools
+
+Interact with SQL or NoSQL databases.
+
+**Examples:**
+- Retrieve customer records
+- Search products
+- Store user data
+- Update information
+
+---
+
+### 4. API Tools
+
+Communicate with third-party services.
+
+**Examples:**
+- Payment gateways
+- Maps
+- Email services
+- Translation APIs
+- Social media platforms
+
+---
+
+### 5. Code Execution Tools
+
+Run Python or other programming code dynamically.
+
+**Examples:**
+- Data analysis
+- Machine learning inference
+- Plot generation
+- File processing
+
+---
+
+## Tool Execution Flow
+
+```
+User:
+"What is the weather in Lahore?"
+
+        │
+        ▼
+AI Agent
+        │
+Recognizes Weather Query
+        │
+        ▼
+Weather Tool
+        │
+Fetches Live Data
+        │
+        ▼
+Returns Result
+        │
+        ▼
+LLM Formats Final Response
+```
+
+---
+
+## Advantages of Using Tools
+
+- Provides real-time information
+- Improves response accuracy
+- Automates complex workflows
+- Reduces hallucinations
+- Integrates with external systems
+- Enhances decision-making
+- Supports business automation
+
+---
+
+## Common Use Cases
+
+- Weather assistants
+- Customer support bots
+- AI coding assistants
+- Financial analysis
+- Medical information systems
+- Travel planning
+- Agricultural advisory systems
+- Research assistants
+
+---
+
+## Tools in LangGraph
+
+In LangGraph, tools are typically used within **agent workflows**. The agent decides whether a tool is required based on the user's request, invokes the appropriate tool, processes the returned result, and then generates a natural language response.
+
+Tools can be integrated with:
+- LangChain Tools
+- Custom Python functions
+- REST APIs
+- SQL databases
+- Vector databases
+- Search engines
+- Cloud services
+
+---
+
+## Best Practices
+
+- Keep tools focused on a single task.
+- Validate inputs before execution.
+- Handle errors gracefully.
+- Return structured outputs.
+- Use descriptive tool names.
+- Minimize unnecessary tool calls.
+- Secure API keys and credentials.
+- Log tool execution for debugging.
+
+---
+
+## Example Applications
+
+- AI customer support with CRM integration
+- RAG chatbot using vector database search
+- Personal assistant with calendar and email tools
+- AI coding assistant with code execution
+- Healthcare assistant accessing medical databases
+- Smart farming assistant using weather and crop data
+- Financial advisor retrieving live market information
+
+---
+
+## Summary
+
+Tools are one of the most powerful features of LangGraph, enabling AI agents to interact with external systems and perform tasks beyond language generation. By integrating custom functions, APIs, databases, web search, and code execution, developers can build intelligent, reliable, and production-ready AI applications that deliver accurate and real-time results.
+```
