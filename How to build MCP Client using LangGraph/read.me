@@ -1,0 +1,283 @@
+
+# How to Build an MCP Client using LangGraph 🔌🤖
+
+## Overview
+
+An **MCP (Model Context Protocol) Client** allows a LangGraph agent to communicate with one or more **MCP Servers** and use the tools they expose. Instead of manually defining tools inside your application, the client dynamically discovers and loads tools from MCP servers.
+
+This makes AI agents more modular, scalable, and easier to maintain. :contentReference[oaicite:0]{index=0}
+
+---
+
+# What is MCP?
+
+**Model Context Protocol (MCP)** is an open standard that enables AI models to securely connect with external tools, APIs, databases, and services through a standardized interface.
+
+Think of MCP as:
+
+> **USB-C for AI Applications**
+
+Just as USB-C allows many devices to connect using one standard, MCP allows AI agents to connect to many different tools without custom integrations. :contentReference[oaicite:1]{index=1}
+
+---
+
+# Architecture
+
+```
+                User
+                  │
+                  ▼
+        LangGraph Agent
+                  │
+                  ▼
+            MCP Client
+                  │
+      ┌───────────┼────────────┐
+      │           │            │
+      ▼           ▼            ▼
+ Math MCP     GitHub MCP   Weather MCP
+   Server        Server        Server
+      │           │            │
+      └───────────┼────────────┘
+                  │
+                  ▼
+          Tool Results Returned
+                  │
+                  ▼
+          Final AI Response
+```
+
+---
+
+# Prerequisites
+
+Install the required libraries:
+
+```bash
+pip install langgraph
+pip install langchain
+pip install langchain-openai
+pip install langchain-mcp-adapters
+pip install mcp
+```
+
+The `langchain-mcp-adapters` package bridges MCP tools into LangChain/LangGraph so agents can use them directly. :contentReference[oaicite:2]{index=2}
+
+---
+
+# Step 1: Create or Start an MCP Server
+
+Before creating a client, you need an MCP server exposing tools.
+
+Example tools:
+
+- Calculator
+- Weather
+- GitHub
+- File System
+- Database
+- Expense Tracker
+
+The server can run locally using **stdio** or remotely over supported transports. :contentReference[oaicite:3]{index=3}
+
+---
+
+# Step 2: Configure the MCP Client
+
+Create a client that knows how to connect to the MCP server.
+
+Example configuration:
+
+```python
+client = MultiServerMCPClient({
+    "math": {
+        "command": "python",
+        "args": ["math_server.py"],
+        "transport": "stdio"
+    }
+})
+```
+
+The client launches (or connects to) the server and manages communication automatically. :contentReference[oaicite:4]{index=4}
+
+---
+
+# Step 3: Connect to the Server
+
+The client establishes a connection with the MCP server.
+
+```
+Client
+   │
+   ▼
+Initialize Connection
+   │
+   ▼
+Connected
+```
+
+---
+
+# Step 4: Discover Available Tools
+
+The client requests the list of available tools.
+
+Example:
+
+```
+Available Tools
+
+✓ add()
+✓ subtract()
+✓ multiply()
+✓ divide()
+```
+
+Tool discovery is automatic—no need to hardcode tool definitions in your agent. :contentReference[oaicite:5]{index=5}
+
+---
+
+# Step 5: Load Tools into LangGraph
+
+The discovered MCP tools are converted into LangChain-compatible tools.
+
+```
+MCP Server
+      │
+      ▼
+Tool Discovery
+      │
+      ▼
+LangChain Tools
+      │
+      ▼
+LangGraph Agent
+```
+
+---
+
+# Step 6: Create the LangGraph Agent
+
+Build an agent and provide the loaded tools.
+
+The agent can now:
+
+- Reason about the task
+- Decide when to call a tool
+- Execute the tool
+- Continue reasoning with the returned result
+
+---
+
+# Step 7: User Interaction
+
+Example:
+
+```
+User:
+What is (25 + 15) × 8?
+
+        │
+        ▼
+LangGraph Agent
+        │
+        ▼
+Math MCP Tool
+        │
+        ▼
+Returns 320
+        │
+        ▼
+Final Response
+```
+
+---
+
+# Complete Workflow
+
+```
+User Query
+      │
+      ▼
+LangGraph Agent
+      │
+Determines Tool Needed
+      │
+      ▼
+MCP Client
+      │
+      ▼
+MCP Server
+      │
+Executes Tool
+      │
+      ▼
+Returns Output
+      │
+      ▼
+LangGraph Agent
+      │
+      ▼
+Final Answer
+```
+
+---
+
+# Advantages of MCP Clients
+
+- Dynamic tool discovery
+- No hardcoded tool definitions
+- Connect to multiple MCP servers
+- Reusable tool ecosystem
+- Easier maintenance
+- Better scalability
+- Standardized communication
+- Works with local and remote servers
+
+---
+
+# Multiple Server Support
+
+One MCP client can connect to multiple servers simultaneously.
+
+```
+             MCP Client
+          ┌──────┼──────┐
+          │      │      │
+          ▼      ▼      ▼
+      Weather  GitHub  Database
+       Server   Server   Server
+```
+
+This allows a single LangGraph agent to access tools from different domains. :contentReference[oaicite:6]{index=6}
+
+---
+
+# Real-World Use Cases
+
+- AI coding assistants
+- GitHub automation
+- Database querying
+- File management
+- Customer support
+- Expense tracking
+- Research assistants
+- Smart home automation
+- Agricultural AI systems
+
+---
+
+# Best Practices
+
+- Keep MCP servers focused on a specific domain.
+- Secure API keys and credentials.
+- Validate tool inputs.
+- Handle connection failures gracefully.
+- Monitor tool execution using observability tools like LangSmith.
+- Reuse MCP servers across multiple AI applications.
+
+---
+
+# Summary
+
+An MCP Client in LangGraph acts as the bridge between your AI agent and external MCP servers. It discovers available tools, loads them into the agent, and enables intelligent tool execution without hardcoding integrations. By combining LangGraph's orchestration with MCP's standardized protocol, developers can build scalable, modular, and production-ready AI agents that seamlessly interact with APIs, databases, file systems, and other external services.
