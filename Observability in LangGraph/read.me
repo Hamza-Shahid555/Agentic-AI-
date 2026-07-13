@@ -1,0 +1,161 @@
+# Observability in LangGraph 📊🔍
+
+## Overview
+
+**Observability** in LangGraph is the ability to monitor, inspect, debug, and analyze the execution of AI workflows. It helps developers understand what happens inside an agent, making it easier to identify errors, improve performance, and optimize decision-making.
+
+Observability is essential for building reliable production-grade AI applications.
+
+---
+
+## Why Observability Matters
+
+- Debug workflow execution step by step.
+- Track how the agent makes decisions.
+- Monitor LLM requests and responses.
+- Identify bottlenecks and failures.
+- Measure latency and execution time.
+- Improve reliability and performance.
+- Analyze state transitions across the graph.
+
+---
+
+## What Can Be Observed?
+
+### 1. Graph Execution
+- Node execution order
+- Edge traversal
+- Workflow progress
+
+### 2. State Changes
+- Initial state
+- Updated state after each node
+- Final output state
+
+### 3. LLM Calls
+- Prompts sent to the model
+- Model responses
+- Token usage
+- Response time
+
+### 4. Tool Usage
+- Which tools were called
+- Tool inputs
+- Tool outputs
+- Execution duration
+
+### 5. Errors
+- Failed nodes
+- Exceptions
+- Retry attempts
+- Error messages
+
+---
+
+## Observability Workflow
+
+```
+User Input
+     │
+     ▼
+Graph Starts
+     │
+     ▼
+Node Executes
+     │
+     ▼
+State Updated
+     │
+     ▼
+LLM / Tool Call
+     │
+     ▼
+Logs & Traces Generated
+     │
+     ▼
+Execution Complete
+```
+
+---
+
+## Benefits
+
+- Easier debugging
+- Faster development
+- Better performance analysis
+- Complete execution visibility
+- Improved workflow reliability
+- Simplified production monitoring
+
+---
+
+## Common Observability Metrics
+
+| Metric | Description |
+|---------|-------------|
+| Latency | Time taken by each node |
+| Tokens Used | Input and output token count |
+| Execution Time | Total workflow duration |
+| Success Rate | Percentage of successful executions |
+| Error Count | Number of failures |
+| Retry Count | Number of retries performed |
+
+---
+
+## Observability Tools
+
+LangGraph integrates well with:
+
+- **LangSmith** (Recommended)
+- Python Logging
+- OpenTelemetry
+- Custom Callbacks
+- Monitoring Dashboards
+
+---
+
+## LangSmith Integration
+
+LangSmith provides powerful observability features for LangGraph.
+
+Features include:
+
+- Visual execution traces
+- Graph visualization
+- Prompt inspection
+- State tracking
+- Tool call monitoring
+- Error debugging
+- Performance analytics
+- Token usage analysis
+- Session history
+
+---
+
+## Best Practices
+
+- Enable tracing during development.
+- Log important state updates.
+- Monitor LLM latency.
+- Handle exceptions gracefully.
+- Track tool execution.
+- Review traces regularly.
+- Optimize slow nodes.
+- Monitor token consumption.
+
+---
+
+## Use Cases
+
+- Debugging AI agents
+- Monitoring RAG pipelines
+- Multi-agent system analysis
+- Production AI monitoring
+- Performance optimization
+- Workflow validation
+
+---
+
+## Summary
+
+Observability in LangGraph provides complete visibility into AI workflow execution. It allows developers to trace node execution, inspect state changes, monitor LLM and tool interactions, detect errors, and optimize performance. Combined with LangSmith, observability becomes an essential component for developing, debugging, and maintaining robust, production-ready AI applications.
