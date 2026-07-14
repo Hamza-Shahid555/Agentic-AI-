@@ -1,0 +1,390 @@
+# LLM Memory Types 🧠
+
+Large Language Models (LLMs) use different types of memory to make conversations more useful and context-aware. Memory helps an AI remember information during a conversation or across multiple conversations.
+
+---
+
+# 1. Short-Term Memory (Conversation Memory)
+
+### What is it?
+Short-term memory stores information only for the current conversation.
+
+### Purpose
+- Remember previous messages.
+- Keep the conversation natural.
+- Answer follow-up questions.
+
+### Example
+User:
+> My name is Hamza.
+
+Later:
+> What is my name?
+
+LLM:
+> Your name is Hamza.
+
+### Characteristics
+- Exists only during the current chat.
+- Lost when the conversation ends (unless saved).
+
+---
+
+# 2. Long-Term Memory (Persistent Memory)
+
+### What is it?
+Long-term memory stores important user information across multiple conversations.
+
+### Purpose
+- Remember user preferences.
+- Personalize future responses.
+- Maintain continuity.
+
+### Example
+The AI remembers:
+- Your preferred programming language.
+- Your learning goals.
+- Your favorite writing style.
+
+### Characteristics
+- Stored in a database.
+- Available in future sessions.
+- Can be updated or deleted.
+
+---
+
+# 3. Semantic Memory
+
+### What is it?
+Semantic memory stores facts and knowledge.
+
+### Examples
+- Python is a programming language.
+- Earth revolves around the Sun.
+- SQL is used for databases.
+
+### Purpose
+Used to answer factual questions.
+
+---
+
+# 4. Episodic Memory
+
+### What is it?
+Stores memories of previous interactions or events.
+
+### Example
+User:
+> Yesterday we built a chatbot.
+
+Today:
+> Continue the chatbot project.
+
+The AI remembers yesterday's work.
+
+### Purpose
+Maintain project continuity.
+
+---
+
+# 5. Procedural Memory
+
+### What is it?
+Stores processes or steps to complete tasks.
+
+### Example
+Remembering how to:
+- Build a RAG system
+- Deploy a FastAPI app
+- Train an ML model
+
+### Purpose
+Execute workflows consistently.
+
+---
+
+# 6. Working Memory
+
+### What is it?
+Temporary memory used while solving the current problem.
+
+### Example
+While solving:
+```
+25 × (12 + 8)
+```
+
+The AI temporarily remembers:
+- 12 + 8 = 20
+- 25 × 20 = 500
+
+### Purpose
+Supports reasoning and calculations.
+
+---
+
+# 7. Context Memory
+
+### What is it?
+Stores the recent conversation context sent to the LLM.
+
+### Example
+User:
+> Explain RAG.
+
+Then:
+> Give me code.
+
+The AI understands that "code" refers to RAG.
+
+### Purpose
+Maintain context between messages.
+
+---
+
+# 8. User Profile Memory
+
+### What is it?
+Stores user-specific preferences and profile information.
+
+### Examples
+- Preferred language
+- Experience level
+- Favorite frameworks
+- Learning goals
+
+### Purpose
+Provide personalized responses.
+
+---
+
+# 9. Retrieval Memory (RAG Memory)
+
+### What is it?
+Instead of remembering everything, the AI retrieves relevant information from external sources.
+
+### Sources
+- PDFs
+- Word documents
+- Websites
+- Databases
+- Vector databases
+- Company knowledge base
+
+### Workflow
+
+```
+Question
+    │
+    ▼
+Retriever
+    │
+    ▼
+Relevant Documents
+    │
+    ▼
+LLM
+    │
+    ▼
+Answer
+```
+
+### Purpose
+Answer questions using external knowledge.
+
+---
+
+# 10. Vector Memory
+
+### What is it?
+Stores information as vector embeddings inside a vector database.
+
+### Common Vector Databases
+- FAISS
+- ChromaDB
+- Pinecone
+- Weaviate
+- Milvus
+- Qdrant
+
+### Workflow
+
+```
+Document
+    │
+Embedding Model
+    │
+Vector Database
+    │
+Similarity Search
+    │
+Relevant Chunks
+    │
+LLM
+```
+
+### Purpose
+Perform semantic search for RAG systems.
+
+---
+
+# 11. Entity Memory
+
+### What is it?
+Tracks important entities mentioned during conversations.
+
+### Example
+
+Conversation:
+- Hamza
+- CropDoc
+- LangGraph
+- OpenAI
+
+Instead of remembering every message, the AI remembers these key entities.
+
+### Purpose
+Maintain important facts efficiently.
+
+---
+
+# 12. Knowledge Graph Memory
+
+### What is it?
+Stores relationships between entities in a graph.
+
+### Example
+
+```
+Hamza
+   │
+works on
+   │
+CropDoc
+   │
+uses
+   │
+LangGraph
+   │
+uses
+   │
+OpenAI
+```
+
+### Purpose
+Understand relationships between people, projects, and concepts.
+
+---
+
+# 13. Tool Memory
+
+### What is it?
+Remembers which tools are available and when to use them.
+
+### Example
+The AI knows when to use:
+- Search
+- Calculator
+- Python
+- SQL Database
+- Weather API
+
+### Purpose
+Improve agent decision-making.
+
+---
+
+# 14. Scratchpad Memory (Reasoning Memory)
+
+### What is it?
+Temporary internal workspace used during reasoning.
+
+### Example
+The AI breaks a complex task into intermediate reasoning steps before generating the final answer.
+
+### Purpose
+Support multi-step reasoning.
+
+---
+
+# Memory Comparison
+
+| Memory Type | Stores | Duration | Example |
+|-------------|--------|----------|---------|
+| Short-Term | Current conversation | Temporary | Chat history |
+| Long-Term | User information | Permanent | User preferences |
+| Semantic | Facts | Permanent | Python is a language |
+| Episodic | Past interactions | Long-term | Yesterday's project |
+| Procedural | Processes | Long-term | How to build RAG |
+| Working | Temporary calculations | Seconds | Solving math |
+| Context | Recent messages | Temporary | Follow-up questions |
+| User Profile | User preferences | Long-term | Learning style |
+| Retrieval | External documents | On-demand | PDF search |
+| Vector | Embeddings | Persistent | Semantic search |
+| Entity | Important entities | Session/Persistent | Names, projects |
+| Knowledge Graph | Entity relationships | Persistent | Connected knowledge |
+| Tool | Available tools | Session/Persistent | Python, Search |
+| Scratchpad | Intermediate reasoning | Temporary | Multi-step thinking |
+
+---
+
+# Memory Hierarchy
+
+```
+                   LLM Memory
+                       │
+      ┌────────────────┴────────────────┐
+      │                                 │
+ Temporary Memory                 Persistent Memory
+      │                                 │
+ ┌────┼────┐                     ┌──────┼──────────┐
+ │    │    │                     │      │          │
+Working Context Short-Term   Long-Term Semantic Episodic
+                                │
+                       ┌────────┴─────────┐
+                       │                  │
+                 User Profile       Procedural
+                       │
+                 Retrieval Memory
+                       │
+                 Vector Database
+                       │
+                 Knowledge Graph
+```
+
+---
+
+# Which Memory is Used in AI Agents?
+
+Most modern AI agents combine multiple memory types:
+
+- ✅ Short-Term Memory
+- ✅ Long-Term Memory
+- ✅ Context Memory
+- ✅ Retrieval (RAG) Memory
+- ✅ Vector Memory
+- ✅ Entity Memory
+- ✅ Tool Memory
+- ✅ Episodic Memory
+- ✅ User Profile Memory
+
+---
+
+# Summary
+
+- **Short-Term Memory:** Current conversation.
+- **Long-Term Memory:** Persistent user information.
+- **Semantic Memory:** General knowledge and facts.
+- **Episodic Memory:** Past conversations and events.
+- **Procedural Memory:** Processes and workflows.
+- **Working Memory:** Temporary reasoning.
+- **Context Memory:** Recent chat history.
+- **User Profile Memory:** Personalization.
+- **Retrieval Memory:** Fetches external knowledge (RAG).
+- **Vector Memory:** Embedding-based semantic search.
+- **Entity Memory:** Tracks important entities.
+- **Knowledge Graph Memory:** Stores relationships.
+- **Tool Memory:** Knows which tools to use.
+- **Scratchpad Memory:** Internal reasoning workspace.
+
+Together, these memory types enable LLMs and AI agents to produce accurate, context-aware, personalized, and intelligent responses.
