@@ -1,0 +1,31 @@
+# 🤖 Autonomous AI Planning, Researching & Writing Agent
+
+An end-to-end Agentic AI project built using **LangGraph**, designed to automate the process of planning, researching, and writing high-quality blog posts. 
+
+Instead of generating a blog post directly (which often lacks depth and structural quality), this system operates as a **Planning Agent**. It breaks down a complex writing task into sub-tasks, conducts real-time web research, plans the structure, drafts the content, and refines the output step-by-step using a stateful graph workflow.
+
+---
+
+## 🚀 Key Features
+
+* **Dual-Phase Execution:**
+  * **Phase 1 (Planning & Research):** Breaks down the main topic into a detailed plan and sub-tasks, and queries live web sources to gather up-to-date information.
+  * **Phase 2 (Execution & Writing):** Executes the research-backed plan node-by-node to generate structured, long-form blog posts.
+* **Stateful Orchestration with LangGraph:** Utilizes LangGraph to coordinate different specialized agent nodes (Router, Planner, Researcher, Writer).
+* **Live Web Research:** Dynamically searches online knowledge bases to fetch factual data and citations.
+* **Real-time Progress Tracking:** Out-of-the-box command-line/terminal logging showing exactly which node (e.g., Router, Researcher, Writer) is currently active.
+
+---
+
+## 🛠️ Tech Stack
+
+* **Orchestration:** [LangGraph](https://github.com/langchain-ai/langgraph) (LangChain's library for building stateful multi-agent applications)
+* **LLM Engine:** Chat models integrated via LangChain (e.g., OpenAI GPT, Anthropic, or open-source models)
+* **Search Integration:** Web Search APIs (e.g., Tavily, Serper, or DuckDuckGo)
+* **Programming Language:** Python 3.10+
+
+---
+
+## 📐 Architecture & Workflow
+
+The agent uses a directed graph to route state through different steps:
