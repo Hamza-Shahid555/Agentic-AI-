@@ -1,0 +1,23 @@
+# 🔄 Self-RAG (Self-Reflective Retrieval-Augmented Generation) with LangGraph
+
+An advanced, self-reflective Retrieval-Augmented Generation (Self-RAG) pipeline built using **LangGraph**. Unlike traditional or corrective RAG, Self-RAG enables an LLM to actively self-evaluate and fact-check its own retrievals, generation quality, and factual alignment (hallucination checking) using specialized **reflection tokens** or programmatic grading steps.
+
+This architecture helps prevent scenarios where the LLM confidently hallucinates or generates overly cautious responses due to noisy and irrelevant context retrieval.
+
+---
+
+## 💡 What is Self-RAG?
+
+Self-RAG is an end-to-end framework that trains or prompts an LLM to generate reflections alongside its answers. In this project, we implement this as a stateful, cyclic workflow in LangGraph:
+
+1. **Evaluate Retrieval Need:** The system checks whether the user's query actually requires external documents (e.g., simple queries like *"How many seconds are in a minute?"* do not need retrieval).
+2. **Retrieve:** If needed, it retrieves chunks from the vector database.
+3. **Assess Relevance (Is-Relevant?):** Evaluates if the retrieved chunks are actually useful for answering the query.
+4. **Evaluate Support (Is-Supported?):** Ensures the generated draft is fully supported by the retrieved context (checking for hallucination).
+5. **Evaluate Utility (Is-Useful?):** Assesses whether the final generated output directly and fully answers the user’s query. If it fails, the system automatically loops back, rewrites the query, or re-retrieves.
+
+---
+
+## 📐 Graph Architecture
+
+Below is the state machine orchestrating the self-reflection cycles:
