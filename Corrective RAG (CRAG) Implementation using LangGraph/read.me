@@ -1,0 +1,25 @@
+# 🔍 Corrective RAG (CRAG) Implementation using LangGraph
+
+An advanced Retrieval-Augmented Generation (RAG) implementation that introduces a **self-correction and evaluation loop** to solve the key limitations of traditional RAG (such as hallucinations, out-of-date responses, and retrieving irrelevant context). 
+
+This project is built from scratch using **LangGraph** to construct a stateful, branching workflow that evaluates retrieved documents and dynamically triggers web searches when local knowledge is insufficient or inaccurate.
+
+---
+
+## 💡 What is Corrective RAG (CRAG)?
+
+Traditional RAG assumes that whatever is retrieved from a vector database is relevant. If the retriever fetches bad or unrelated documents, the LLM generates a confidently incorrect response (hallucination). 
+
+**CRAG solves this by inserting a grading step between retrieval and generation:**
+1. **Retrieve:** Fetch document chunks from a vector database.
+2. **Evaluate (Grade):** Use a lightweight evaluator (LLM or grader) to check the relevance of retrieved documents to the query.
+3. **Decide & Act:**
+   * **Correct (Relevance is High):** Proceed directly to generate the answer using internal knowledge (with optional knowledge refinement).
+   * **Incorrect (Relevance is Low):** Discard the documents and trigger an **external web search** (e.g., Tavily/Serper) to fetch accurate information.
+   * **Ambiguous (Partial Relevance):** Blend internal retrieved knowledge with external web search results for a comprehensive answer.
+
+---
+
+## 📐 Graph Architecture
+
+The workflow behaves as a decision-making state machine built using LangGraph:
